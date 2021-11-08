@@ -1,0 +1,29 @@
+const fs = require('fs');
+const path = require('path');
+
+fs.readdir('03-files-in-folder/secret-folder', {withFileTypes: true}, function(error, items) {
+  for (let i=0; i<items.length; i++) {
+    fs.stat(`03-files-in-folder/secret-folder/${items[i].name}`, (error, stats) => {
+      if (error) {
+        console.log(error);
+      }
+      else if (items[i].isFile()) {
+        console.log((items[i].name).split('.')[0] + ' - ' + path.extname(items[i].name).slice(1) + ' - ' + stats.size + 'kb');
+      }
+      else if (items[i].isDirectory()) {
+        fs.readdir(`03-files-in-folder/secret-folder/${items[i].name}`, {withFileTypes: true}, function(error, itemsin) {
+          for (let k=0; k<itemsin.length; k++) {
+            fs.stat(`03-files-in-folder/secret-folder/${items[i].name}/${itemsin[k].name}`, (error, stats) => {
+              if (error) {
+                console.log(error);
+              }
+              else if (itemsin[k].isFile()) {
+                console.log((itemsin[k].name).split('.')[0] + ' - ' + path.extname(itemsin[k].name).slice(1) + ' - ' + stats.size + 'kb');
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+});
