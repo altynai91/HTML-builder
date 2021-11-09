@@ -8,7 +8,7 @@ fs.readdir('03-files-in-folder/secret-folder', {withFileTypes: true}, function(e
         console.log(error);
       }
       else if (items[i].isFile()) {
-        console.log((items[i].name).split('.')[0] + ' - ' + path.extname(items[i].name).slice(1) + ' - ' + stats.size + 'kb');
+        console.log(path.basename(items[i].name, path.extname(items[i].name)) + ' - ' + path.extname(items[i].name).slice(1) + ' - ' + stats.size + 'kb');
       }
       else if (items[i].isDirectory()) {
         fs.readdir(`03-files-in-folder/secret-folder/${items[i].name}`, {withFileTypes: true}, function(error, itemsin) {
@@ -18,7 +18,7 @@ fs.readdir('03-files-in-folder/secret-folder', {withFileTypes: true}, function(e
                 console.log(error);
               }
               else if (itemsin[k].isFile()) {
-                console.log((itemsin[k].name).split('.')[0] + ' - ' + path.extname(itemsin[k].name).slice(1) + ' - ' + stats.size + 'kb');
+                console.log(path.basename(itemsin[k].name, path.extname(itemsin[k].name)) + ' - ' + path.extname(itemsin[k].name).slice(1) + ' - ' + stats.size + 'kb');
               }
             });
           }
