@@ -13,16 +13,21 @@ console.log(newAssets);
 
 let writeableStream = fs.createWriteStream(`${fullDist}style.css`);
 
-fs.mkdir(fullDist, { recursive: true }, err => {
-  if (err) {
-    throw err;
+fs.mkdir(fullDist, {recursive: true}, err => { 
+  if (err && err.code != 'EEXIST') {
+    throw 'up';
   }
   assetsCopy(assets, newAssets);
 });
 
 async function assetsCopy(src, dest) {
   const files = await fsp.readdir(src, { withFileTypes: true });
-  await fsp.mkdir(dest);
+  await fsp.mkdir(fullDist, {recursive: true}, err => { 
+    if (err && err.code != 'EEXIST') {
+      throw 'up';
+    }
+    assetsCopy(assets, newAssets);
+  });
   for (let file of files) {
     const folderInAssets = path.join(src, file.name);
     const folderInNewAssets = path.join(dest, file.name);
