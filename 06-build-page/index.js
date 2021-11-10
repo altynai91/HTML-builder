@@ -22,7 +22,7 @@ fs.mkdir(fullDist, {recursive: true}, err => {
 
 async function assetsCopy(src, dest) {
   const files = await fsp.readdir(src, { withFileTypes: true });
-  await fsp.mkdir(fullDist, {recursive: true}, err => { 
+  await fsp.mkdir(dest, {recursive: true}, err => { 
     if (err && err.code != 'EEXIST') {
       throw 'up';
     }
