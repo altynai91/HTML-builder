@@ -8,7 +8,7 @@ fs.readdir('03-files-in-folder/secret-folder', {withFileTypes: true}, function(e
         console.log(error);
       }
       else if (items[i].isFile()) {
-        console.log(path.basename(items[i].name, path.extname(items[i].name)) + ' - ' + path.extname(items[i].name).slice(1) + ' - ' + stats.size + 'kb');
+        console.log(path.basename(items[i].name, path.extname(items[i].name)) + ' - ' + path.extname(items[i].name).slice(1) + ' - ' + stats.size + 'b');
       }
       else if (items[i].isDirectory()) {
         return;
